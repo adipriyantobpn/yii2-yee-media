@@ -165,11 +165,11 @@ class Media extends ActiveRecord implements OwnerAccess
         $counter = 0;
         do {
             if ($counter == 0)
-                $filename = Inflector::slug($this->file->baseName) . '.' . $this->file->extension;
+                $filename = $this->file->baseName . '.' . $this->file->extension;
             else {
                 //if we don't want to rename we finish the call here
                 if ($rename == false) return false;
-                $filename = Inflector::slug($this->file->baseName) . $counter . '.' . $this->file->extension;
+                $filename = $this->file->baseName . $counter . '.' . $this->file->extension;
             }
             $url = "$structure/$filename";
             $counter++;
@@ -177,8 +177,8 @@ class Media extends ActiveRecord implements OwnerAccess
         // save original uploaded file
         $this->file->saveAs("$absolutePath/$filename");
         $this->filename = $filename;
-        $this->title = $filename;
-        $this->alt = $filename;
+        $this->title = $this->file->baseName;
+        $this->alt = $this->file->baseName;
         $this->type = $this->file->type;
         $this->size = $this->file->size;
         $this->url = $url;
